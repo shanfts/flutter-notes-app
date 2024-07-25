@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:blog/config/router.dart';
 import 'package:flutter/material.dart';
 
@@ -8,38 +10,46 @@ class AppBottomNavigationBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
     final navBarItemsLength = navBarItems.length;
 
-    return Stack(
-      alignment: Alignment.bottomRight,
-      clipBehavior: Clip.none,
-
-      children: [
-        Container(
-          decoration: const BoxDecoration(
-            border: Border(
-              top: BorderSide(
-                color: Colors.grey,
-                width: 0.5,
-              ),
+    return Center(
+      child: Container(
+        margin: const EdgeInsets.symmetric(
+            horizontal: 20), // Add horizontal margin for better look
+        decoration: BoxDecoration(
+          color: const Color.fromARGB(255, 255, 255, 255)
+              .withOpacity(0.4), // Semi-transparent background
+          borderRadius: BorderRadius.circular(30),
+          boxShadow: const [
+            BoxShadow(
+              color: Colors.transparent,
+              blurRadius: 10,
+              spreadRadius: 1,
+              offset: Offset(0, 5),
+            ),
+          ],
+        ),
+        height: 60,
+        child: ClipRRect(
+          borderRadius:
+              BorderRadius.circular(30), // Same as container border radius
+          child: BackdropFilter(
+            filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                for (int i = 0; i < navBarItemsLength; i++)
+                  AppBottomNavigationBarItem(
+                    label: navBarItems[i]["label"],
+                    icon: navBarItems[i]["icon"],
+                    route: navBarItems[i]["route"],
+                    onTap: navBarItems[i]["onTap"],
+                  ),
+              ],
             ),
           ),
-          height: 60,
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: [
-              for (int i = 0; i < navBarItemsLength; i++)
-                AppBottomNavigationBarItem(
-                  label: navBarItems[i]["label"],
-                  icon: navBarItems[i]["icon"],
-                  route: navBarItems[i]["route"],
-                  onTap: navBarItems[i]["onTap"]
-                ),
-            ],
-          ),
         ),
-      ],
+      ),
     );
   }
 }
@@ -66,7 +76,9 @@ class AppBottomNavigationBarItem extends StatelessWidget {
       width: 70 * size.width / STANDARD_SCREEN_WIDTH - 10,
       height: size.height,
       child: InkWell(
-        onTap: () => onTap != null ? onTap!(context) : Navigator.pushNamed(context, route),
+        onTap: () => onTap != null
+            ? onTap!(context)
+            : Navigator.pushNamed(context, route),
         child: Center(
           child: Column(
             mainAxisSize: MainAxisSize.min,

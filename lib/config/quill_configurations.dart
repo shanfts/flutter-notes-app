@@ -7,21 +7,24 @@ class QuillConfigurations {
   static QuillController getController({required String jsonContent}) {
     return QuillController(
       document: Document.fromJson(jsonDecode(jsonContent)),
-      selection: TextSelection.collapsed(offset: 0),
+      selection: const TextSelection.collapsed(offset: 0),
     );
   }
 
-  static QuillEditorConfigurations getEditorConfigurations({required QuillController controller}) {
+  static QuillEditorConfigurations getEditorConfigurations(
+      {required QuillController controller}) {
     return QuillEditorConfigurations(
       controller: controller,
-      readOnly: false,
+
+      // readOnly: false,
       sharedConfigurations: const QuillSharedConfigurations(
         locale: Locale('fr'),
       ),
     );
   }
 
-  static QuillSimpleToolbarConfigurations getToolbarConfigurations({required QuillController controller}) {
+  static QuillSimpleToolbarConfigurations getToolbarConfigurations(
+      {required QuillController controller}) {
     return QuillSimpleToolbarConfigurations(
       toolbarSize: 40,
       controller: controller,

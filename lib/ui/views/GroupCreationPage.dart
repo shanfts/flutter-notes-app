@@ -1,4 +1,3 @@
-
 import 'package:blog/cubit/Group.cubit.dart';
 import 'package:blog/models/Group.model.dart';
 import 'package:blog/service/Snackbar.service.dart';
@@ -93,7 +92,7 @@ class _GroupCreationPageState extends State<GroupCreationPage> {
     if (name.isNotEmpty) {
       // Create a new Group object
       Group newGroup = Group(
-        id : UniqueKey().toString(),
+        id: UniqueKey().toString(),
         name: name,
         description: description,
         color: _selectedColor,
@@ -104,13 +103,14 @@ class _GroupCreationPageState extends State<GroupCreationPage> {
 
       Navigator.pop(context);
 
-      SnackbarService.showSuccessSnackbar(context, message: 'Group created successfully');
+      SnackbarService.showSuccessSnackbar(context,
+          message: 'Group created successfully');
 
       return;
     }
 
-    SnackbarService.showErrorSnackbar(context, message: 'Please fill all the fields');
-
+    SnackbarService.showErrorSnackbar(context,
+        message: 'Please fill all the fields');
   }
 
   void _updateGroup(BuildContext context) {
@@ -128,12 +128,14 @@ class _GroupCreationPageState extends State<GroupCreationPage> {
 
       Navigator.pop(context);
 
-      SnackbarService.showSuccessSnackbar(context, message: 'Group updated successfully');
+      SnackbarService.showSuccessSnackbar(context,
+          message: 'Group updated successfully');
 
       return;
     }
 
-    SnackbarService.showErrorSnackbar(context, message: 'Please fill all the fields');
+    SnackbarService.showErrorSnackbar(context,
+        message: 'Please fill all the fields');
   }
 
   void _pickColor() {
@@ -191,7 +193,7 @@ class _GroupCreationPageState extends State<GroupCreationPage> {
                 border: InputBorder.none,
                 hintText: 'Name',
               ),
-              style: Theme.of(context).textTheme.headline5,
+              style: Theme.of(context).textTheme.headlineLarge,
             ),
             TextField(
               controller: _descriptionController,
@@ -199,7 +201,7 @@ class _GroupCreationPageState extends State<GroupCreationPage> {
                 border: InputBorder.none,
                 hintText: 'Description',
               ),
-              style: Theme.of(context).textTheme.bodyText1,
+              style: Theme.of(context).textTheme.bodyMedium,
             ),
             const SizedBox(height: 16),
             // icon picker
@@ -217,7 +219,10 @@ class _GroupCreationPageState extends State<GroupCreationPage> {
                     },
                     child: Container(
                       padding: const EdgeInsets.all(8),
-                      child: Icon(icons[i], color: _selectedIcon == icons[i] ? Colors.black : Colors.grey),
+                      child: Icon(icons[i],
+                          color: _selectedIcon == icons[i]
+                              ? Colors.black
+                              : Colors.grey),
                     ),
                   ),
               ],

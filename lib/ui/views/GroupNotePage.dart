@@ -17,18 +17,20 @@ class GroupNotePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      extendBodyBehindAppBar: true,
       appBar: AppBar(
+        backgroundColor: Colors.transparent,
         forceMaterialTransparency: true,
         centerTitle: false,
         title: Text(group.name), // You can customize this title
         leading: IconButton(
-          icon: Icon(Icons.arrow_back),
+          icon: const Icon(Icons.arrow_back),
           onPressed: () => Navigator.of(context).pop(),
         ),
         // edit
         actions: [
           IconButton(
-            icon: Icon(Icons.edit),
+            icon: const Icon(Icons.edit),
             onPressed: () {
               // Go to the edit group page
               GoRouter.of(context).push('/add-group', extra: group);
@@ -37,35 +39,46 @@ class GroupNotePage extends StatelessWidget {
         ],
       ),
       body: Container(
-        color: Colors.white,
+        decoration: const BoxDecoration(
+          gradient: LinearGradient(
+            colors: [
+              Color.fromARGB(255, 234, 199, 199),
+              Color.fromARGB(255, 181, 188, 243),
+            ],
+            begin: Alignment.topLeft,
+            end: Alignment.bottomRight,
+          ),
+        ),
         child: Stack(
           children: [
             NoteListView(
-              groupQuery: group,
-              onLongPress: (note) {
-                // Go to the edit note page
-                showModalBottomSheet(
-                  context: context,
-                  builder: (context) {
-                    return BottomNoteModal(
-                      note: note,
-                      children: [
-                        ListTile(
-                          leading: const Icon(Icons.group, color: Colors.black),
-                          title: const Text('Remove from group', style: TextStyle(color: Colors.black)),
-                          onTap: () {
-                            // cubit remove note from group
-                            context.read<NoteCubit>().removeFromGroup(note, group);
-                            Navigator.of(context).pop();
-                          },
-                        ),
-                      ],
-                      
-                    );
-                  },
-                );
-              }
-            ),
+                groupQuery: group,
+                onLongPress: (note) {
+                  // Go to the edit note page
+                  showModalBottomSheet(
+                    context: context,
+                    builder: (context) {
+                      return BottomNoteModal(
+                        note: note,
+                        children: [
+                          ListTile(
+                            leading:
+                                const Icon(Icons.group, color: Colors.black),
+                            title: const Text('Remove from group',
+                                style: TextStyle(color: Colors.black)),
+                            onTap: () {
+                              // cubit remove note from group
+                              context
+                                  .read<NoteCubit>()
+                                  .removeFromGroup(note, group);
+                              Navigator.of(context).pop();
+                            },
+                          ),
+                        ],
+                      );
+                    },
+                  );
+                }),
             Positioned(
               left: 0,
               right: 0,

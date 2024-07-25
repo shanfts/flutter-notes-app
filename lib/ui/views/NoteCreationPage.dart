@@ -3,15 +3,14 @@ import 'dart:convert';
 import 'package:blog/config/quill_configurations.dart';
 import 'package:blog/cubit/Note.cubit.dart';
 import 'package:blog/models/Group.model.dart';
+import 'package:blog/models/Note.model.dart';
 import 'package:blog/service/Snackbar.service.dart';
 import 'package:blog/ui/list/ColorPickerListView.dart';
 import 'package:blog/ui/list/GroupListVIew.dart';
 import 'package:flutter/material.dart';
-import 'package:blog/models/Note.model.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_quill/flutter_quill.dart' show QuillController, QuillEditor, QuillToolbar;
-
-
+import 'package:flutter_quill/flutter_quill.dart'
+    show QuillController, QuillEditor, QuillToolbar;
 
 class NoteCreationPage extends StatefulWidget {
   final Note? note;
@@ -31,7 +30,6 @@ class _NoteCreationPageState extends State<NoteCreationPage> {
   final TextEditingController _descriptionController = TextEditingController();
   late QuillController _contentController;
 
-
   Color _selectedColor = Colors.black;
   List<Group> selectedGroups = [];
 
@@ -40,8 +38,11 @@ class _NoteCreationPageState extends State<NoteCreationPage> {
   @override
   void initState() {
     super.initState();
-    String initialContent = widget.isEditing && widget.note != null ? widget.note!.content : '[{"insert":"This is a new note\\n"}]';
-    _contentController = QuillConfigurations.getController(jsonContent: initialContent);
+    String initialContent = widget.isEditing && widget.note != null
+        ? widget.note!.content
+        : '[{"insert":"This is a new note\\n"}]';
+    _contentController =
+        QuillConfigurations.getController(jsonContent: initialContent);
 
     if (widget.isEditing && widget.note != null) {
       _selectedColor = widget.note!.color;
@@ -59,19 +60,18 @@ class _NoteCreationPageState extends State<NoteCreationPage> {
     super.dispose();
   }
 
-
   void _saveNote(BuildContext context) async {
     final String title = _titleController.text;
     final String description = _descriptionController.text;
     // get the content as a json string
-    final String content = jsonEncode(_contentController.document.toDelta().toJson());
-    
+    final String content =
+        jsonEncode(_contentController.document.toDelta().toJson());
 
     if (title.isNotEmpty && content.isNotEmpty) {
-
-      // is title too long 
+      // is title too long
       if (title.length > MAX_TITLE_LENGTH) {
-        SnackbarService.showErrorSnackbar(context, message: 'Title is too long');
+        SnackbarService.showErrorSnackbar(context,
+            message: 'Title is too long');
         return;
       }
 
@@ -84,37 +84,37 @@ class _NoteCreationPageState extends State<NoteCreationPage> {
 
       note.setGroup(selectedGroups);
 
-      context.read<NoteCubit>().add(
-        note
-      );
+      context.read<NoteCubit>().add(note);
 
       // After saving the note, you may want to navigate back to the note list view
       Navigator.of(context).pop();
 
-      SnackbarService.showSuccessSnackbar(context, message: 'Note created successfully');
+      SnackbarService.showSuccessSnackbar(context,
+          message: 'Note created successfully');
 
       return;
     }
 
-    SnackbarService.showErrorSnackbar(context, message: 'Please fill all the fields');
+    SnackbarService.showErrorSnackbar(context,
+        message: 'Please fill all the fields');
   }
 
   void _updateNote(BuildContext context) {
-
     String title = _titleController.text;
     String content = _contentController.document.toDelta().toJson().toString();
 
     if (title.isNotEmpty && content.isNotEmpty) {
-
-      // is title too long 
+      // is title too long
       if (title.length > MAX_TITLE_LENGTH) {
-        SnackbarService.showErrorSnackbar(context, message: 'Title is too long');
+        SnackbarService.showErrorSnackbar(context,
+            message: 'Title is too long');
         return;
       }
 
       note!.title = _titleController.text;
       note!.description = _descriptionController.text;
-      note!.content = jsonEncode(_contentController.document.toDelta().toJson());
+      note!.content =
+          jsonEncode(_contentController.document.toDelta().toJson());
       note!.color = _selectedColor;
       note!.setGroup(selectedGroups);
 
@@ -124,13 +124,14 @@ class _NoteCreationPageState extends State<NoteCreationPage> {
       // After saving the note, you may want to navigate back to the note list view
       Navigator.of(context).pop();
 
-      SnackbarService.showSuccessSnackbar(context, message: 'Note updated successfully');
+      SnackbarService.showSuccessSnackbar(context,
+          message: 'Note updated successfully');
 
       return;
     }
 
-    SnackbarService.showErrorSnackbar(context, message: 'Please fill all the fields');
-
+    SnackbarService.showErrorSnackbar(context,
+        message: 'Please fill all the fields');
   }
 
   void _pickColor() {
@@ -153,37 +154,35 @@ class _NoteCreationPageState extends State<NoteCreationPage> {
       context: context,
       builder: (BuildContext context) {
         // Assuming you have a list of all groups
-       return StatefulBuilder(
-        builder: (BuildContext context, StateSetter setModalState) {
-
-          return GroupListVIew(
-            selectedGroupsId: selectedGroups.map((group) => group.id).toList(),
-            onTap: (group) {
-              if (selectedGroups.contains(group)) {
-                setState(() {
-                  selectedGroups.remove(group);
-                });
-                
-              } else {
-                setState(() {
-                  selectedGroups.add(group);
-                });
-              }
-              // force rebuild of the bottom sheet
-              setModalState(() {});
-            },
-          );
-        },
-      );
+        return StatefulBuilder(
+          builder: (BuildContext context, StateSetter setModalState) {
+            return GroupListVIew(
+              selectedGroupsId:
+                  selectedGroups.map((group) => group.id).toList(),
+              onTap: (group) {
+                if (selectedGroups.contains(group)) {
+                  setState(() {
+                    selectedGroups.remove(group);
+                  });
+                } else {
+                  setState(() {
+                    selectedGroups.add(group);
+                  });
+                }
+                // force rebuild of the bottom sheet
+                setModalState(() {});
+              },
+            );
+          },
+        );
       },
-    );      
+    );
   }
 
   @override
   Widget build(BuildContext context) {
-    
     return Scaffold(
-     appBar: AppBar(
+      appBar: AppBar(
         title: Text(widget.isEditing ? 'Edit note' : 'New note'),
         actions: [
           IconButton(
@@ -204,7 +203,8 @@ class _NoteCreationPageState extends State<NoteCreationPage> {
           IconButton(
             icon: const Icon(Icons.save),
             color: Colors.green,
-            onPressed: () => widget.isEditing ? _updateNote(context) : _saveNote(context),
+            onPressed: () =>
+                widget.isEditing ? _updateNote(context) : _saveNote(context),
           ),
         ],
       ),
@@ -219,7 +219,7 @@ class _NoteCreationPageState extends State<NoteCreationPage> {
                 border: InputBorder.none,
                 hintText: 'Title',
               ),
-              style: Theme.of(context).textTheme.headline5,
+              style: Theme.of(context).textTheme.headlineMedium,
             ),
             TextField(
               controller: _descriptionController,
@@ -231,12 +231,14 @@ class _NoteCreationPageState extends State<NoteCreationPage> {
             ),
             const SizedBox(height: 16),
             QuillToolbar.simple(
-              configurations: QuillConfigurations.getToolbarConfigurations(controller: _contentController),
+              configurations: QuillConfigurations.getToolbarConfigurations(
+                  controller: _contentController),
             ),
             const SizedBox(height: 16),
             Expanded(
               child: QuillEditor.basic(
-                configurations: QuillConfigurations.getEditorConfigurations(controller: _contentController),
+                configurations: QuillConfigurations.getEditorConfigurations(
+                    controller: _contentController),
               ),
             ),
           ],

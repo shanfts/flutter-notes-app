@@ -2,7 +2,6 @@ import 'package:blog/ui/widget/BottomNavigationBar.dart';
 import 'package:flutter/material.dart';
 
 class ScaffoldWithNavBar extends StatelessWidget {
-
   const ScaffoldWithNavBar({
     super.key,
     required this.child,
@@ -13,9 +12,17 @@ class ScaffoldWithNavBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: child,
-      bottomNavigationBar: const SafeArea(
-        child: AppBottomNavigationBar(),
+      body: Stack(
+        children: [
+          child,
+          const Positioned(
+            left: 50,
+            right: 50,
+            bottom:
+                30, // Adjust this value to change how high the navigation bar floats
+            child: AppBottomNavigationBar(),
+          ),
+        ],
       ),
     );
   }

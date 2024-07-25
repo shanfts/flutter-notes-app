@@ -5,24 +5,33 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
 class HomePage extends StatelessWidget {
-  const HomePage({Key? key}) : super(key: key);
+  const HomePage({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      extendBodyBehindAppBar: true,
       appBar: AppBar(
-        forceMaterialTransparency: true,
-        title: const Text('Notes'),
-        leading: const Icon(
-          Icons.notes,
-          color: Colors.black,
-        ),
+        backgroundColor: Colors.transparent,
+        elevation: 0, // Remove shadow/elevation
+        title: const Text('Notes', style: TextStyle(color: Colors.black)),
+        // leading: const Icon(
+        //   Icons.notes,
+        //   color: Colors.black,
+        // ),
         centerTitle: false,
         actions: [
           IconButton(
-            icon: const Icon(Icons.search),
+            icon: const Icon(Icons.add, color: Colors.black),
             onPressed: () {
-              // show search bar
+              // Navigate to the add note page
+              GoRouter.of(context).push('/add');
+            },
+          ),
+          IconButton(
+            icon: const Icon(Icons.search, color: Colors.black),
+            onPressed: () {
+              // Show search bar
               showSearch(
                 context: context,
                 delegate: NoteSearchDelegate(),
@@ -32,12 +41,21 @@ class HomePage extends StatelessWidget {
         ],
       ),
       body: Container(
-        color: Colors.white,
+        decoration: const BoxDecoration(
+          gradient: LinearGradient(
+            colors: [
+              Color.fromARGB(255, 234, 199, 199),
+              Color.fromARGB(255, 181, 188, 243),
+            ],
+            begin: Alignment.topLeft,
+            end: Alignment.bottomRight,
+          ),
+        ),
         child: Stack(
           children: [
             NoteListView(
               onLongPress: (note) {
-                // Go to the edit note page
+                // Show bottom modal to edit note
                 showModalBottomSheet(
                   context: context,
                   builder: (context) {
@@ -46,20 +64,11 @@ class HomePage extends StatelessWidget {
                     );
                   },
                 );
-              }
+              },
             ),
           ],
         ),
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          // Go to the create note page
-          GoRouter.of(context).push('/add');
-        },
-        backgroundColor: Colors.black,
-        foregroundColor: Colors.white,
-        child: const Icon(Icons.add),
-      )
     );
   }
 }

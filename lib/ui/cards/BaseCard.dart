@@ -1,5 +1,3 @@
-
-
 import 'package:flutter/material.dart';
 
 class BaseCard extends StatelessWidget {
@@ -36,7 +34,7 @@ class BaseCard extends StatelessWidget {
           child: Container(
             decoration: BoxDecoration(
               borderRadius: const BorderRadius.all(Radius.circular(10)),
-              backgroundBlendMode: BlendMode.multiply,
+              // backgroundBlendMode: BlendMode.multiply,
               gradient: LinearGradient(
                 colors: gradientColors,
                 begin: Alignment.topLeft,
