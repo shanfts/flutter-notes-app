@@ -1,7 +1,7 @@
-import 'package:blog/config/router.dart';
-import 'package:blog/cubit/Group.cubit.dart'; // Import your GroupCubit
-import 'package:blog/cubit/Note.cubit.dart';
-import 'package:blog/ui/views/splashscreen.dart';
+import 'package:NotedUp/config/router.dart';
+import 'package:NotedUp/cubit/Group.cubit.dart'; // Import your GroupCubit
+import 'package:NotedUp/cubit/Note.cubit.dart';
+import 'package:NotedUp/ui/views/splashscreen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -16,7 +16,7 @@ void main() async {
     statusBarColor: Colors
         .transparent, // Set to transparent if you want the gradient to show through
     statusBarIconBrightness:
-        Brightness.light, // For dark icons on light background
+        Brightness.dark, // For dark icons on light background
     systemNavigationBarColor:
         Colors.transparent, // Set the color for the navigation bar
     systemNavigationBarIconBrightness:
@@ -60,7 +60,7 @@ class _MyAppState extends State<MyApp> {
 
   Future<void> _loadSplashScreen() async {
     await Future.delayed(
-        const Duration(seconds: 5)); // Set the duration of the splash screen
+        const Duration(seconds: 2)); // Set the duration of the splash screen
     setState(() {
       _isLoading = false;
     });
@@ -76,7 +76,7 @@ class _MyAppState extends State<MyApp> {
 
     return MaterialApp.router(
       debugShowCheckedModeBanner: false,
-      title: 'Notes',
+      title: 'NotedUp.',
       routerConfig: router,
     );
   }

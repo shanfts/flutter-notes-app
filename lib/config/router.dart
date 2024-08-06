@@ -1,13 +1,12 @@
-
-import 'package:blog/models/Group.model.dart';
-import 'package:blog/models/Note.model.dart';
-import 'package:blog/ui/views/GroupCreationPage.dart';
-import 'package:blog/ui/views/GroupNotePage.dart';
-import 'package:blog/ui/views/HomePage.dart';
-import 'package:blog/ui/views/NoteCreationPage.dart';
-import 'package:blog/ui/views/GroupsPage.dart';
-import 'package:blog/ui/views/SettingsPage.dart';
-import 'package:blog/ui/widget/ScaffoldWithNavbar.dart';
+import 'package:NotedUp/models/Group.model.dart';
+import 'package:NotedUp/models/Note.model.dart';
+import 'package:NotedUp/ui/views/GroupCreationPage.dart';
+import 'package:NotedUp/ui/views/GroupNotePage.dart';
+import 'package:NotedUp/ui/views/HomePage.dart';
+import 'package:NotedUp/ui/views/NoteCreationPage.dart';
+import 'package:NotedUp/ui/views/GroupsPage.dart';
+import 'package:NotedUp/ui/views/SettingsPage.dart';
+import 'package:NotedUp/ui/widget/ScaffoldWithNavbar.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
@@ -45,7 +44,6 @@ final router = GoRouter(
       builder: (context, state, child) {
         return ScaffoldWithNavBar(child: child);
       },
-
       routes: [
         GoRoute(
           path: '/home',
@@ -60,34 +58,29 @@ final router = GoRouter(
           builder: (context, state) => const NoteCreationPage(),
         ),
         GoRoute(
-          path: '/note',
-          builder: (context, state) {
-            final note = state.extra as Note?;
-            return NoteCreationPage(note: note);
-          }
-        ),
+            path: '/note',
+            builder: (context, state) {
+              final note = state.extra as Note?;
+              return NoteCreationPage(note: note);
+            }),
         GoRoute(
-          path: '/group',
-          builder: (context, state) {
-            final group = state.extra as Group?;
-            return GroupNotePage(group: group!);
-          }
-        ),
-        GoRoute( 
-          path: '/add-group',
-          builder: (context, state) {
-            final group = state.extra as Group?;
-            return GroupCreationPage(group: group);
-          }
-        ),
-        GoRoute( 
-          path: '/settings',
-          builder: (context, state) {
-            return SettingsPage();
-          }
-        )
+            path: '/group',
+            builder: (context, state) {
+              final group = state.extra as Group?;
+              return GroupNotePage(group: group!);
+            }),
+        GoRoute(
+            path: '/add-group',
+            builder: (context, state) {
+              final group = state.extra as Group?;
+              return GroupCreationPage(group: group);
+            }),
+        GoRoute(
+            path: '/settings',
+            builder: (context, state) {
+              return SettingsPage();
+            })
       ],
     ),
-
   ],
 );

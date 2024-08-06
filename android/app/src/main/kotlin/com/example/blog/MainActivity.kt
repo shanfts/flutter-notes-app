@@ -1,4 +1,4 @@
-package com.example.blog
+package com.digitalhelp.NotedUp
 
 import io.flutter.embedding.android.FlutterActivity
 

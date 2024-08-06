@@ -1,6 +1,6 @@
-import 'package:blog/cubit/Note.cubit.dart';
-import 'package:blog/models/Note.model.dart';
-import 'package:blog/ui/widget/BottomModal.dart';
+import 'package:NotedUp/cubit/Note.cubit.dart';
+import 'package:NotedUp/models/Note.model.dart';
+import 'package:NotedUp/ui/widget/BottomModal.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -18,7 +18,6 @@ class BottomNoteModal extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
     return BottomModal(
       createdAt: note.createdAt!,
       onDelete: () {
@@ -35,4 +34,3 @@ class BottomNoteModal extends StatelessWidget {
     );
   }
 }
-

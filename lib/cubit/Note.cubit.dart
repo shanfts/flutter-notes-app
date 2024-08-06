@@ -1,6 +1,6 @@
 import 'package:bloc/bloc.dart';
-import 'package:blog/models/Group.model.dart';
-import 'package:blog/models/Note.model.dart';
+import 'package:NotedUp/models/Group.model.dart';
+import 'package:NotedUp/models/Note.model.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:convert'; // For json encode & decode
 
@@ -23,7 +23,8 @@ class NoteCubit extends Cubit<List<Note>> {
   void getNotes() {
     final String storedData = prefs!.getString('notes') ?? '[]';
     final List<dynamic> jsonData = json.decode(storedData);
-    final List<Note> loadedNotes = jsonData.map((jsonItem) => Note.fromJson(jsonItem)).toList();
+    final List<Note> loadedNotes =
+        jsonData.map((jsonItem) => Note.fromJson(jsonItem)).toList();
 
     emit(loadedNotes);
   }
@@ -72,8 +73,8 @@ class NoteCubit extends Cubit<List<Note>> {
   }
 
   void _saveToPrefs() {
-    final String jsonData = json.encode(state.map((note) => note.toJson()).toList());
+    final String jsonData =
+        json.encode(state.map((note) => note.toJson()).toList());
     prefs!.setString('notes', jsonData);
   }
-
 }

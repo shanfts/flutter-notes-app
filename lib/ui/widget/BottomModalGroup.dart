@@ -1,8 +1,7 @@
-
-import 'package:blog/cubit/Group.cubit.dart';
-import 'package:blog/cubit/Note.cubit.dart';
-import 'package:blog/models/Group.model.dart';
-import 'package:blog/ui/widget/BottomModal.dart';
+import 'package:NotedUp/cubit/Group.cubit.dart';
+import 'package:NotedUp/cubit/Note.cubit.dart';
+import 'package:NotedUp/models/Group.model.dart';
+import 'package:NotedUp/ui/widget/BottomModal.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -20,7 +19,6 @@ class BottomGroupModal extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
     return BottomModal(
       createdAt: group.createdAt!,
       onDelete: () {
@@ -28,7 +26,6 @@ class BottomGroupModal extends StatelessWidget {
         // cubit delete note
         context.read<GroupCubit>().delete(group);
         context.read<NoteCubit>().removeGroup(group);
-
       },
       onEdit: () {
         Navigator.of(context).pop();
@@ -39,4 +36,3 @@ class BottomGroupModal extends StatelessWidget {
     );
   }
 }
-

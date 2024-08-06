@@ -1,6 +1,6 @@
-import 'package:blog/config/font.dart';
-import 'package:blog/models/Note.model.dart';
-import 'package:blog/ui/cards/BaseCard.dart';
+import 'package:NotedUp/config/font.dart';
+import 'package:NotedUp/models/Note.model.dart';
+import 'package:NotedUp/ui/cards/BaseCard.dart';
 import 'package:flutter/material.dart';
 
 class NoteCard extends StatelessWidget {
@@ -9,7 +9,7 @@ class NoteCard extends StatelessWidget {
   final VoidCallback? onLongPress;
   final Color color;
 
-  NoteCard({
+  const NoteCard({
     super.key,
     required this.note,
     this.onTap,
@@ -44,10 +44,13 @@ class NoteCard extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(note.title, style: getTextStyleWithColor(TextStyles.h4, Colors.white)),
+                Text(note.title,
+                    style: getTextStyleWithColor(TextStyles.h4, Colors.white)),
                 const SizedBox(height: 8),
                 if (note.description.isNotEmpty)
-                  Text(note.description, style: getTextStyleWithColor(TextStyles.bodyText1, Colors.white70)),
+                  Text(note.description,
+                      style: getTextStyleWithColor(
+                          TextStyles.bodyText1, Colors.white70)),
               ],
             ),
           ),

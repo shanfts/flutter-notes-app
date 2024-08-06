@@ -1,6 +1,6 @@
 import 'dart:ui';
 
-import 'package:blog/config/router.dart';
+import 'package:NotedUp/config/router.dart';
 import 'package:flutter/material.dart';
 
 const int STANDARD_SCREEN_WIDTH = 360;

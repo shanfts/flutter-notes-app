@@ -1,4 +1,4 @@
-import 'package:blog/ui/list/GroupListVIew.dart';
+import 'package:NotedUp/ui/list/GroupListVIew.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 

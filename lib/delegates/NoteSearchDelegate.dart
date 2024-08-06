@@ -1,4 +1,4 @@
-import 'package:blog/ui/list/NoteListView.dart';
+import 'package:NotedUp/ui/list/NoteListView.dart';
 import 'package:flutter/material.dart';
 
 class NoteSearchDelegate extends SearchDelegate<String> {
@@ -29,7 +29,7 @@ class NoteSearchDelegate extends SearchDelegate<String> {
   @override
   Widget buildResults(BuildContext context) {
     // Show some result based on the selection
-    return Padding( 
+    return Padding(
       padding: const EdgeInsets.all(8.0),
       child: NoteListView(
         query: query,

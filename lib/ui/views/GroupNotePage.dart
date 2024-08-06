@@ -1,7 +1,7 @@
-import 'package:blog/cubit/Note.cubit.dart';
-import 'package:blog/models/Group.model.dart';
-import 'package:blog/ui/list/NoteListView.dart';
-import 'package:blog/ui/widget/BottomNoteModal.dart';
+import 'package:NotedUp/cubit/Note.cubit.dart';
+import 'package:NotedUp/models/Group.model.dart';
+import 'package:NotedUp/ui/list/NoteListView.dart';
+import 'package:NotedUp/ui/widget/BottomNoteModal.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';

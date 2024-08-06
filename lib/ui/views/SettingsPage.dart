@@ -1,5 +1,5 @@
-import 'package:blog/cubit/Group.cubit.dart';
-import 'package:blog/cubit/Note.cubit.dart';
+import 'package:NotedUp/cubit/Group.cubit.dart';
+import 'package:NotedUp/cubit/Note.cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shared_preferences/shared_preferences.dart';

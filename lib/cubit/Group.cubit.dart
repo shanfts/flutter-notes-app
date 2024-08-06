@@ -1,7 +1,7 @@
 import 'dart:convert';
 
 import 'package:bloc/bloc.dart';
-import 'package:blog/models/Group.model.dart';
+import 'package:NotedUp/models/Group.model.dart';
 import 'package:shared_preferences/shared_preferences.dart'; // Import your Group model
 
 class GroupCubit extends Cubit<List<Group>> {
@@ -39,7 +39,8 @@ class GroupCubit extends Cubit<List<Group>> {
 
   void update(Group updatedGroup) {
     final currentState = List<Group>.from(state);
-    final index = currentState.indexWhere((_group) => _group.id == updatedGroup.id);
+    final index =
+        currentState.indexWhere((_group) => _group.id == updatedGroup.id);
     if (index != -1) {
       currentState[index] = updatedGroup;
       emit(currentState);
@@ -63,4 +64,3 @@ class GroupCubit extends Cubit<List<Group>> {
     prefs!.setStringList('groups', groupsString);
   }
 }
-

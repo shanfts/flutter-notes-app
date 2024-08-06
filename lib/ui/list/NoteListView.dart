@@ -1,9 +1,7 @@
-
-
-import 'package:blog/cubit/Note.cubit.dart';
-import 'package:blog/models/Group.model.dart';
-import 'package:blog/models/Note.model.dart';
-import 'package:blog/ui/cards/NoteCard.dart';
+import 'package:NotedUp/cubit/Note.cubit.dart';
+import 'package:NotedUp/models/Group.model.dart';
+import 'package:NotedUp/models/Note.model.dart';
+import 'package:NotedUp/ui/cards/NoteCard.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
@@ -17,29 +15,31 @@ class NoteListView extends StatefulWidget {
   final Function(Note)? onLongPress;
 
   NoteListView({
-    Key? key,
+    super.key,
     this.query = '',
     this.groupQuery,
     this.onLongPress,
-  }) : super(key: key);
+  });
 
   @override
   _NoteListViewState createState() => _NoteListViewState();
 }
 
 class _NoteListViewState extends State<NoteListView> {
-
   @override
   Widget build(BuildContext context) {
-    
     return BlocBuilder<NoteCubit, List<Note>>(
       builder: (context, notes) {
         notes = notes.reversed.toList();
 
         if (widget.query.isNotEmpty) {
           notes = notes.where((note) {
-            return note.title.toLowerCase().contains(widget.query.toLowerCase()) ||
-                note.description.toLowerCase().contains(widget.query.toLowerCase()) ||
+            return note.title
+                    .toLowerCase()
+                    .contains(widget.query.toLowerCase()) ||
+                note.description
+                    .toLowerCase()
+                    .contains(widget.query.toLowerCase()) ||
                 note.content.toLowerCase().contains(widget.query.toLowerCase());
           }).toList();
         }
@@ -47,13 +47,15 @@ class _NoteListViewState extends State<NoteListView> {
         // look at id of group in the list of groups
         if (widget.groupQuery != null) {
           // ignore: unnecessary_null_comparison
-          List<String> groupIds = widget.groupQuery!.id != null ? [widget.groupQuery!.id] : [];
+          List<String> groupIds =
+              widget.groupQuery!.id != null ? [widget.groupQuery!.id] : [];
           notes = notes.where((note) {
-            List<String> noteGroupIds = note.groups.map((group) => group.id).toList();
-            return noteGroupIds.any((noteGroupId) => groupIds.contains(noteGroupId));
+            List<String> noteGroupIds =
+                note.groups.map((group) => group.id).toList();
+            return noteGroupIds
+                .any((noteGroupId) => groupIds.contains(noteGroupId));
           }).toList();
         }
-        
 
         return Padding(
           padding: const EdgeInsets.all(8.0),
@@ -69,13 +71,14 @@ class _NoteListViewState extends State<NoteListView> {
                       onTap: () {
                         GoRouter.of(context).push('/note', extra: note);
                       },
-                      onLongPress: widget.onLongPress != null ? () {
-                        widget.onLongPress!(note);
-                      } : null,
+                      onLongPress: widget.onLongPress != null
+                          ? () {
+                              widget.onLongPress!(note);
+                            }
+                          : null,
                       color: note.color,
                     );
                   },
-            
                 ),
         );
       },

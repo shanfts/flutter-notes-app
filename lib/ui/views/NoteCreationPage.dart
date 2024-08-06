@@ -1,12 +1,12 @@
 import 'dart:convert';
 
-import 'package:blog/config/quill_configurations.dart';
-import 'package:blog/cubit/Note.cubit.dart';
-import 'package:blog/models/Group.model.dart';
-import 'package:blog/models/Note.model.dart';
-import 'package:blog/service/Snackbar.service.dart';
-import 'package:blog/ui/list/ColorPickerListView.dart';
-import 'package:blog/ui/list/GroupListVIew.dart';
+import 'package:NotedUp/config/quill_configurations.dart';
+import 'package:NotedUp/cubit/Note.cubit.dart';
+import 'package:NotedUp/models/Group.model.dart';
+import 'package:NotedUp/models/Note.model.dart';
+import 'package:NotedUp/service/Snackbar.service.dart';
+import 'package:NotedUp/ui/list/ColorPickerListView.dart';
+import 'package:NotedUp/ui/list/GroupListVIew.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_quill/flutter_quill.dart'

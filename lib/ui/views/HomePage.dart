@@ -1,6 +1,6 @@
-import 'package:blog/delegates/NoteSearchDelegate.dart';
-import 'package:blog/ui/list/NoteListView.dart';
-import 'package:blog/ui/widget/BottomNoteModal.dart';
+import 'package:NotedUp/delegates/NoteSearchDelegate.dart';
+import 'package:NotedUp/ui/list/NoteListView.dart';
+import 'package:NotedUp/ui/widget/BottomNoteModal.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
@@ -14,7 +14,10 @@ class HomePage extends StatelessWidget {
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         elevation: 0, // Remove shadow/elevation
-        title: const Text('Notes', style: TextStyle(color: Colors.black)),
+        title: Image.asset(
+          'img/smallLogo.png',
+          height: 25,
+        ),
         // leading: const Icon(
         //   Icons.notes,
         //   color: Colors.black,

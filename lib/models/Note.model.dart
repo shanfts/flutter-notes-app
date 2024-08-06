@@ -1,4 +1,4 @@
-import 'package:blog/models/Group.model.dart';
+import 'package:NotedUp/models/Group.model.dart';
 import 'package:flutter/material.dart';
 
 const int MAX_PREVIEW_LENGTH = 250;
@@ -14,7 +14,7 @@ class Note {
   final DateTime? createdAt = DateTime.now();
 
   List<Group> groups = [];
-  
+
   Color color = Colors.black;
 
   Note({
@@ -22,11 +22,12 @@ class Note {
     this.description = 'Basic Note',
     this.content = '',
     this.color = Colors.black,
-  }) : groups = [], title = title.length > MAX_TITLE_LENGTH ? '${title.substring(0, MAX_TITLE_LENGTH)}...' : title;
-  
+  })  : groups = [],
+        title = title.length > MAX_TITLE_LENGTH
+            ? '${title.substring(0, MAX_TITLE_LENGTH)}...'
+            : title;
 
   String get preview {
-
     // check if the content has new line character and count it
     int newLineCount = 0;
     for (int i = 0; i < content.length; i++) {
@@ -79,7 +80,8 @@ class Note {
 
     if (json['groups'] != null) {
       final List<dynamic> jsonData = json['groups'];
-      final List<Group> loadedGroups = jsonData.map((jsonItem) => Group.fromJson(jsonItem)).toList();
+      final List<Group> loadedGroups =
+          jsonData.map((jsonItem) => Group.fromJson(jsonItem)).toList();
       note.setGroup(loadedGroups);
     }
 
@@ -95,5 +97,4 @@ class Note {
       'groups': groups.map((group) => group.toJson()).toList(),
     };
   }
-
 }
