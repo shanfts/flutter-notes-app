@@ -1,5 +1,6 @@
 import 'package:NotedUp/delegates/NoteSearchDelegate.dart';
 import 'package:NotedUp/ui/list/NoteListView.dart';
+import 'package:NotedUp/ui/views/printerWidget.dart';
 import 'package:NotedUp/ui/widget/BottomNoteModal.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
@@ -13,34 +14,46 @@ class HomePage extends StatelessWidget {
       extendBodyBehindAppBar: true,
       appBar: AppBar(
         backgroundColor: Colors.transparent,
-        elevation: 0, // Remove shadow/elevation
+        elevation: 0,
         title: Image.asset(
           'img/smallLogo.png',
           height: 25,
         ),
-        // leading: const Icon(
-        //   Icons.notes,
-        //   color: Colors.black,
-        // ),
         centerTitle: false,
         actions: [
           IconButton(
             icon: const Icon(Icons.add, color: Colors.black),
             onPressed: () {
-              // Navigate to the add note page
               GoRouter.of(context).push('/add');
             },
           ),
           IconButton(
             icon: const Icon(Icons.search, color: Colors.black),
             onPressed: () {
-              // Show search bar
               showSearch(
                 context: context,
                 delegate: NoteSearchDelegate(),
               );
             },
-          )
+          ),
+          IconButton(
+            icon: const Icon(Icons.picture_as_pdf, color: Colors.black),
+            onPressed: () {
+              const PrintWidget(orderNumber: 2, ipAddress: '', port: 'port');
+              // final profile = await CapabilityProfile.load();
+              // final printer = NetworkPrinter(PaperSize.mm80, profile);
+
+              // final PosPrintResult res =
+              //     await printer.connect('192.168.0.123', port: 9100);
+
+              // if (res == PosPrintResult.success) {
+              //   await printReceipt(printer);
+              //   printer.disconnect();
+              // } else {
+              //   print('Could not connect to printer');
+              // }
+            },
+          ),
         ],
       ),
       body: Container(
@@ -58,7 +71,6 @@ class HomePage extends StatelessWidget {
           children: [
             NoteListView(
               onLongPress: (note) {
-                // Show bottom modal to edit note
                 showModalBottomSheet(
                   context: context,
                   builder: (context) {
