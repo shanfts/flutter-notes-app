@@ -1,12 +1,39 @@
 import 'package:NotedUp/delegates/NoteSearchDelegate.dart';
+import 'package:NotedUp/services/google_ads.dart';
 import 'package:NotedUp/ui/list/NoteListView.dart';
-import 'package:NotedUp/ui/views/printerWidget.dart';
 import 'package:NotedUp/ui/widget/BottomNoteModal.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
-class HomePage extends StatelessWidget {
+class HomePage extends StatefulWidget {
   const HomePage({super.key});
+
+  @override
+  _HomePageState createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
+  final AdManager _adManager = AdManager(); // Create an instance of AdManager
+
+  @override
+  void initState() {
+    super.initState();
+    _loadBannerAdWithDelay();
+  }
+
+  void _loadBannerAdWithDelay() {
+    _adManager.loadBannerAd();
+    // Introduce a delay to allow the ad to load before refreshing the UI
+    Future.delayed(const Duration(seconds: 1), () {
+      setState(() {}); // Refresh the UI
+    });
+  }
+
+  @override
+  void dispose() {
+    _adManager.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -36,24 +63,6 @@ class HomePage extends StatelessWidget {
               );
             },
           ),
-          IconButton(
-            icon: const Icon(Icons.picture_as_pdf, color: Colors.black),
-            onPressed: () {
-              const PrintWidget(orderNumber: 2, ipAddress: '', port: 'port');
-              // final profile = await CapabilityProfile.load();
-              // final printer = NetworkPrinter(PaperSize.mm80, profile);
-
-              // final PosPrintResult res =
-              //     await printer.connect('192.168.0.123', port: 9100);
-
-              // if (res == PosPrintResult.success) {
-              //   await printReceipt(printer);
-              //   printer.disconnect();
-              // } else {
-              //   print('Could not connect to printer');
-              // }
-            },
-          ),
         ],
       ),
       body: Container(
@@ -67,19 +76,27 @@ class HomePage extends StatelessWidget {
             end: Alignment.bottomRight,
           ),
         ),
-        child: Stack(
+        child: Column(
           children: [
-            NoteListView(
-              onLongPress: (note) {
-                showModalBottomSheet(
-                  context: context,
-                  builder: (context) {
-                    return BottomNoteModal(
-                      note: note,
-                    );
-                  },
-                );
-              },
+            Expanded(
+              child: NoteListView(
+                onLongPress: (note) {
+                  showModalBottomSheet(
+                    context: context,
+                    builder: (context) {
+                      return BottomNoteModal(
+                        note: note,
+                      );
+                    },
+                  );
+                },
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.only(
+                bottom: 120,
+              ),
+              child: _adManager.getBannerAdWidget(),
             ),
           ],
         ),

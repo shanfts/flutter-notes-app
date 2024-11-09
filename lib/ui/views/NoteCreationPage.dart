@@ -5,6 +5,7 @@ import 'package:NotedUp/cubit/Note.cubit.dart';
 import 'package:NotedUp/models/Group.model.dart';
 import 'package:NotedUp/models/Note.model.dart';
 import 'package:NotedUp/service/Snackbar.service.dart';
+import 'package:NotedUp/services/google_ads.dart';
 import 'package:NotedUp/ui/list/ColorPickerListView.dart';
 import 'package:NotedUp/ui/list/GroupListVIew.dart';
 import 'package:flutter/material.dart';
@@ -29,6 +30,7 @@ class _NoteCreationPageState extends State<NoteCreationPage> {
   final TextEditingController _titleController = TextEditingController();
   final TextEditingController _descriptionController = TextEditingController();
   late QuillController _contentController;
+  final AdManager _adManager = AdManager(); // Create an instance of AdManager
 
   Color _selectedColor = Colors.black;
   List<Group> selectedGroups = [];
@@ -50,6 +52,16 @@ class _NoteCreationPageState extends State<NoteCreationPage> {
       _descriptionController.text = widget.note!.description;
       selectedGroups = List<Group>.from(widget.note!.groups);
     }
+
+    _loadBannerAdWithDelay(); // Load the ad with a delay
+  }
+
+  void _loadBannerAdWithDelay() {
+    _adManager.loadBannerAd(); // Load the ad
+    // Introduce a delay to allow the ad to load before refreshing the UI
+    Future.delayed(const Duration(seconds: 1), () {
+      setState(() {}); // Refresh the UI
+    });
   }
 
   @override
@@ -57,6 +69,8 @@ class _NoteCreationPageState extends State<NoteCreationPage> {
     _titleController.dispose();
     _descriptionController.dispose();
     _contentController.dispose();
+    _adManager.dispose();
+
     super.dispose();
   }
 
@@ -211,8 +225,9 @@ class _NoteCreationPageState extends State<NoteCreationPage> {
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
+            _adManager.getBannerAdWidget(),
             TextField(
               controller: _titleController,
               decoration: const InputDecoration(
