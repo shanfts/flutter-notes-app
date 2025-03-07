@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "272351027986",
+    "project_id": "notedup-6db75",
+    "storage_bucket": "notedup-6db75.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:272351027986:android:d8beea771c876797aa09cb",
+        "android_client_info": {
+          "package_name": "com.digitalhelp.NotedUp"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAQt002MdbrgLBmE3w4jn_9uBRTtrSCKPQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

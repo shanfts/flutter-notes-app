@@ -5,13 +5,10 @@ import 'package:NotedUp/ui/views/splashscreen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:google_mobile_ads/google_mobile_ads.dart';
-// import 'splash_screen.dart'; // Import the SplashScreen÷
 
 void main() async {
   // Ensure proper initialization of Flutter bindings
   WidgetsFlutterBinding.ensureInitialized();
-  MobileAds.instance.initialize();
   // Set status bar and bottom navigation bar color
   SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
     statusBarColor: Colors
@@ -23,8 +20,7 @@ void main() async {
     systemNavigationBarIconBrightness:
         Brightness.light, // For dark icons on the navigation bar
   ));
-  // MobileAds.instance.initialize();
-  // GoogleAds().preloadAds(); // Preload ads here
+
   // Initialize cubits
   final NoteCubit noteCubit = NoteCubit();
   final GroupCubit groupCubit = GroupCubit();

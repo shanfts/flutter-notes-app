@@ -45,24 +45,5 @@
 	<true/>
 	<key>UIApplicationSupportsIndirectInputEvents</key>
 	<true/>
-	
-	<!-- AdMob Configuration -->
-	<key>GADApplicationIdentifier</key>
-	<string>ca-app-pub-1563154828859548~3987871181</string> <!-- Replace with your actual AdMob App ID -->
-	<!-- <key>SKAdNetworkItems</key>
-	<array>
-		<dict>
-			<key>SKAdNetworkIdentifier</key>
-			<string>cstr6suwn9.skadnetwork</string>
-		</dict>
-		<dict>
-			<key>SKAdNetworkIdentifier</key>
-			<string>4fzdc2evr5.skadnetwork</string>
-		</dict>
-		<dict>
-			<key>SKAdNetworkIdentifier</key>
-			<string>v72qych5uu.skadnetwork</string>
-		</dict>
-	</array> -->
 </dict>
 </plist>

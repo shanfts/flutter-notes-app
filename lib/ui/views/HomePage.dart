@@ -1,5 +1,5 @@
 import 'package:NotedUp/delegates/NoteSearchDelegate.dart';
-import 'package:NotedUp/services/google_ads.dart';
+import 'package:NotedUp/services/iron_source_service.dart';
 import 'package:NotedUp/ui/list/NoteListView.dart';
 import 'package:NotedUp/ui/widget/BottomNoteModal.dart';
 import 'package:flutter/material.dart';
@@ -13,26 +13,23 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  final AdManager _adManager = AdManager(); // Create an instance of AdManager
+  final IronSourceService _ironSourceService = IronSourceService();
 
   @override
   void initState() {
     super.initState();
-    _loadBannerAdWithDelay();
-  }
-
-  void _loadBannerAdWithDelay() {
-    _adManager.loadBannerAd();
-    // Introduce a delay to allow the ad to load before refreshing the UI
-    Future.delayed(const Duration(seconds: 1), () {
-      setState(() {}); // Refresh the UI
-    });
+    _initializeAds();
   }
 
   @override
   void dispose() {
-    _adManager.dispose();
+    _ironSourceService.hideBannerAd();
     super.dispose();
+  }
+
+  Future<void> _initializeAds() async {
+    await _ironSourceService.initialize();
+    await _ironSourceService.loadBannerAd();
   }
 
   @override
@@ -92,12 +89,9 @@ class _HomePageState extends State<HomePage> {
                 },
               ),
             ),
-            Padding(
-              padding: const EdgeInsets.only(
-                bottom: 120,
-              ),
-              child: _adManager.getBannerAdWidget(),
-            ),
+            const SizedBox(
+              height: 50,
+            ), // Space for banner ad
           ],
         ),
       ),
